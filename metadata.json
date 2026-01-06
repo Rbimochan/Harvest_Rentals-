@@ -1,0 +1,7 @@
+{
+  "name": "Harvest Rentals MVP",
+  "description": "A comprehensive rental management dashboard for landlords featuring tenant tracking, room occupancy, billing automation, and AI-powered communication tools.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
