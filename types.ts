@@ -1,51 +1,55 @@
 
-export enum RoomStatus {
-  OCCUPIED = 'Occupied',
-  VACANT = 'Vacant',
-  PENDING_PAYMENT = 'Pending Payment',
+export enum UnitStatus {
+  ACTIVE = 'Active',
+  GRACE_PERIOD = 'Grace Period',
+  CURTAILED = 'Curtailed',
   MAINTENANCE = 'Maintenance'
 }
 
-export enum PaymentStatus {
-  PAID = 'Paid',
-  PARTIAL = 'Partial',
-  OVERDUE = 'Overdue',
-  PENDING = 'Pending'
+export enum EventType {
+  MEASUREMENT = 'measurement',
+  STATE_CHANGE = 'state_change',
+  PAYMENT = 'payment',
+  ALERT = 'alert',
+  MANUAL_OVERRIDE = 'manual_override'
 }
 
-export interface Tenant {
+export interface AddonService {
   id: string;
   name: string;
-  email: string;
-  phone: string;
-  roomNumber: string;
-  moveInDate: string;
-  balance: number;
-  status: 'active' | 'inactive';
-  photo?: string;
+  status: 'Active' | 'Suspended' | 'Pending';
+  monthlyRate: number;
+  type: 'Electricity' | 'Internet' | 'Waste' | 'Water' | 'Security';
 }
 
-export interface Room {
+export interface Resident {
+  id: string;
+  name: string;
+  unitId: string;
+  balance: number;
+  dailyRate: number; // Rs per day (fixed rate)
+  daysRemaining: number;
+  lastKwhReading: number;
+  moveInDate: string;
+  avatarUrl?: string;
+  subscriptions?: AddonService[];
+}
+
+export interface Unit {
   id: string;
   number: string;
   floor: number;
-  baseRent: number;
-  status: RoomStatus;
-  currentTenantId?: string;
+  status: UnitStatus;
+  safetyLimitAmps: number;
+  currentResidentId?: string;
+  imageUrl?: string;
 }
 
-export interface Payment {
+export interface SystemEvent {
   id: string;
-  tenantId: string;
-  amount: number;
-  date: string;
-  method: 'Cash' | 'Bank Transfer' | 'Check';
-  status: PaymentStatus;
-}
-
-export interface KPI {
-  title: string;
-  value: string | number;
-  change: string;
-  trend: 'up' | 'down' | 'neutral';
+  timestamp: string;
+  unitId: string;
+  type: EventType;
+  description: string;
+  signature: string; // HMAC-SHA256 mock
 }

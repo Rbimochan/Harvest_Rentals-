@@ -1,20 +1,42 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
 
-# Run and deploy your AI Studio app
+# Rentapp Smart Platform
 
-This contains everything you need to run your app locally.
+A premium, IoT-driven property management system designed for sustainable and simplified residential management. Inspired by the clean aesthetics of modern hospitality platforms, Rentapp provides property owners with granular control over utilities and resident lifecycle.
 
-View your app in AI Studio: https://ai.studio/apps/drive/11W0dso9hpwL1uCMc7szHvVkXspfKm7-e
+## 🚀 Key Features
 
-## Run Locally
+- **The Pulse (Dashboard)**: Real-time building health monitoring with aggregated load patterns and KPI tracking.
+- **Smart Unit Management**: Granular control over 22+ sub-meters with automatic safety limit enforcement.
+- **Eco-Smart Utility Logic**: Deterministic billing and automatic curtailment based on real-time consumption.
+- **AI-Powered Communication**: Integrated Gemini AI to compose professional "Red Alert" messages for balance reminders and maintenance updates.
+- **Secure Gateway**: Property-specific authentication for administrative access (Demo: `admin` / `admin`).
 
-**Prerequisites:**  Node.js
+## 🛠 Tech Stack
 
+- **Frontend**: React 19 (ESM)
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Visualizations**: Recharts
+- **Intelligence**: Google Gemini API (@google/genai)
+- **Typography**: Plus Jakarta Sans
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 🏗 Project Structure
+
+- `/pages`: Modular UI for Dashboard, Residents, Units, and Communication.
+- `/services`: Mock data layer and Gemini API integrations.
+- `/components`: Reusable UI Layouts and brand assets.
+
+## 📖 Setup Instructions
+
+1. Ensure `process.env.API_KEY` is configured with your Google Gemini API key.
+2. Serve the `index.html` using a modern development server.
+3. Access the demo property **KunwarNiwas** using the credentials:
+   - **Property ID**: `admin`
+   - **Password**: `admin`
+
+## 📞 Support
+
+For property-specific support for **KunwarNiwas**, contact the owner at `984164243`.
+
+---
+*Rentapp © 2026 • Premium Rental & Utility Management*

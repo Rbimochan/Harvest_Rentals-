@@ -1,6 +1,6 @@
 {
-  "name": "Harvest Rentals MVP",
-  "description": "A comprehensive rental management dashboard for landlords featuring tenant tracking, room occupancy, billing automation, and AI-powered communication tools.",
+  "name": "rentapp",
+  "description": "Premium smart housing and rental management platform. Sustainable, deterministic, and simplified.",
   "requestFramePermissions": [
     "camera"
   ]

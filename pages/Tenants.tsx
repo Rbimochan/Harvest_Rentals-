@@ -1,14 +1,16 @@
 
 import React, { useState } from 'react';
-import { mockTenants } from '../services/mockData';
-import { Search, Filter, Plus, Mail, Phone, MoreVertical } from 'lucide-react';
+// Fix: Use mockResidents instead of mockTenants
+import { mockResidents } from '../services/mockData';
+import { Search, Filter, Plus, Smartphone, MoreVertical } from 'lucide-react';
 
 const Tenants: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const filteredTenants = mockTenants.filter(t => 
+  // Fix: Map properties to Resident interface (unitId instead of roomNumber)
+  const filteredTenants = mockResidents.filter(t => 
     t.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    t.roomNumber.includes(searchTerm)
+    t.unitId.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -16,7 +18,7 @@ const Tenants: React.FC = () => {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-slate-900">Tenant Directory</h2>
-          <p className="text-slate-500">Manage {mockTenants.length} residents across the property</p>
+          <p className="text-slate-500">Manage {mockResidents.length} residents across the property</p>
         </div>
         <button className="flex items-center gap-2 px-4 py-2 bg-emerald-500 text-slate-900 rounded-lg text-sm font-bold hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/10">
           <Plus size={18} /> Add New Tenant
@@ -28,7 +30,7 @@ const Tenants: React.FC = () => {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
           <input 
             type="text" 
-            placeholder="Search by name, room, or email..."
+            placeholder="Search by name or unit..."
             className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-emerald-500 transition-all"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -55,7 +57,7 @@ const Tenants: React.FC = () => {
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900">{tenant.name}</h3>
-                    <p className="text-xs text-slate-500 font-medium">Room {tenant.roomNumber}</p>
+                    <p className="text-xs text-slate-500 font-medium">Unit {tenant.unitId}</p>
                   </div>
                 </div>
                 <button className="p-1 text-slate-400 hover:text-slate-600 rounded hover:bg-slate-50">
@@ -65,12 +67,12 @@ const Tenants: React.FC = () => {
 
               <div className="space-y-3 mb-6">
                 <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <Mail size={16} className="text-slate-400" />
-                  {tenant.email}
+                  <Smartphone size={16} className="text-slate-400" />
+                  ID: {tenant.id}
                 </div>
                 <div className="flex items-center gap-3 text-sm text-slate-600">
-                  <Phone size={16} className="text-slate-400" />
-                  {tenant.phone}
+                  <Smartphone size={16} className="text-slate-400" />
+                  Daily Rate: Rs. {tenant.dailyRate}
                 </div>
               </div>
 
@@ -82,16 +84,16 @@ const Tenants: React.FC = () => {
                 <div className="w-px h-8 bg-slate-200"></div>
                 <div className="text-center px-2">
                   <p className="text-[10px] uppercase tracking-wider font-bold text-slate-400 mb-0.5">Balance</p>
-                  <p className={`text-sm font-bold ${tenant.balance > 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
-                    ${tenant.balance}
+                  <p className={`text-sm font-bold ${tenant.balance < 0 ? 'text-rose-600' : 'text-emerald-600'}`}>
+                    Rs. {tenant.balance}
                   </p>
                 </div>
               </div>
             </div>
             
             <div className="flex border-t border-slate-100">
-              <button className="flex-1 py-3 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors uppercase tracking-wider border-r border-slate-100">View Profile</button>
-              <button className="flex-1 py-3 text-xs font-bold text-emerald-600 hover:bg-emerald-50 transition-colors uppercase tracking-wider">Send Message</button>
+              <button className="flex-1 py-3 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors uppercase tracking-wider border-r border-slate-100">Profile</button>
+              <button className="flex-1 py-3 text-xs font-bold text-emerald-600 hover:bg-emerald-50 transition-colors uppercase tracking-wider">Message</button>
             </div>
           </div>
         ))}

@@ -1,28 +1,23 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-const apiKey = process.env.API_KEY || '';
-
-export const generateRedAlertMessage = async (tenantName: string, balance: number, daysOverdue: number) => {
-  if (!apiKey) return `URGENT: ${tenantName}, your rent balance of $${balance} is ${daysOverdue} days overdue. Please contact the management immediately.`;
-  
-  const ai = new GoogleGenAI({ apiKey });
+// Fix: Use process.env.API_KEY directly and follow standard initialization
+export const generateRedAlertMessage = async (tenantName: string, balance: number, daysLate: number) => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
-    contents: `Write a professional but firm "Red Alert" rent overdue notification for a tenant named ${tenantName} who is $${balance} behind and ${daysOverdue} days late. Keep it under 160 characters for SMS.`,
+    contents: `Write a firm "Red Alert" SMS for RentApp (Nepal). Tenant: ${tenantName}, Balance: Rs. ${balance}, Status: ${daysLate > 0 ? 'Payment overdue' : 'Low balance'}. Tone: Professional, IoT-driven, firm. Max 140 chars. Include 'RentApp'.`,
   });
   
   return response.text || "Message generation failed.";
 };
 
-export const suggestCommunicationTemplate = async (category: string) => {
-  if (!apiKey) return "Hello, this is a reminder regarding your rental agreement.";
-
-  const ai = new GoogleGenAI({ apiKey });
+export const suggestSystemReport = async (buildingId: string) => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
   const response = await ai.models.generateContent({
     model: 'gemini-3-flash-preview',
-    contents: `Suggest a friendly email template for ${category} in a rental management context. Keep it concise.`,
+    contents: `Summarize the operational health of building ${buildingId} based on an offline-first smart sub-metering architectural model using the RentApp platform. Focus on 'Quiet Mode' operations.`,
   });
 
-  return response.text || "Suggestion failed.";
+  return response.text || "Summary failed.";
 };
